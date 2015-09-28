@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+# figure out what directory the script is in
+SCRIPTS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source $SCRIPTS_DIR/image-config
+source $SCRIPTS_DIR/image-lib
+
+# convert the HPI data
+HPI=HPI-2015-07
+convertTtl $TTL_DIR/${HPI}.ttl
+
+# convert the TRANS data
+for FILE in $TTL_DIR/TRANS-*
+do
+  convertTtl $FILE
+done

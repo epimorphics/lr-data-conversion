@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+# figure out what directory the script is in
+SCRIPTS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source $SCRIPTS_DIR/image-config
+
+if [ "$(ls -A $NQUADS_DIR)" ]
+then
+  rm $NQUADS_DIR/*
+fi
+
+if [ -e $DS_DIR ]
+then 
+  rm -r $DS_DIR
+fi
+
+if [ -e $TEXT_INDEX_DIR ]
+then
+  rm -r $TEXT_INDEX_DIR
+fi
+

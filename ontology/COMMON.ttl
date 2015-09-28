@@ -1,0 +1,231 @@
+# baseURI: http://landregistry.data.gov.uk/def/common/
+# imports: http://www.w3.org/2004/02/skos/core
+
+@prefix common:  <http://landregistry.data.gov.uk/def/common/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+common:
+      rdf:type owl:Ontology ;
+      rdfs:comment "Common definitions for Land Registry Linked Data that forms part of the 'Day1' dataset published each month that contains information on property transactions for full value."@en ;
+      rdfs:label "Common definitions for Land Registry Linked Data"@en ;
+      owl:imports <http://www.w3.org/2004/02/skos/core> ;
+      owl:versionInfo "Land Registry Property Market Trend Data - COMMON Model version 1.0"@en .
+
+common:Address
+      rdf:type owl:Class ;
+      rdfs:comment "Super Class for Address implementations"@en ;
+      rdfs:label "Address"@en ;
+      rdfs:subClassOf owl:Thing .
+
+common:BS7666Address
+      rdf:type owl:Class ;
+      rdfs:comment "BS7666Address structure containing paon, saon, street, town, locality, district, county and postcode."@en ;
+      rdfs:label "BS7666 address"@en ;
+      rdfs:subClassOf common:Address ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:district
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:saon
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:postcode
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:paon
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:county
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:locality
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:town
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:street
+              ] .
+
+common:EstateTypeConcept
+      rdf:type owl:Class ;
+      rdfs:comment "EstateTypeConcept Class in which specific instances are defined using a skos structure"@en ;
+      rdfs:label "Estate type concept"@en ;
+      rdfs:subClassOf skos:Concept .
+
+common:EstateTypeNotationDatatype
+      rdf:type rdfs:Datatype ;
+      rdfs:comment "Estate type notation data type"@en ;
+      rdfs:label "Estate type notation data type"@en .
+
+common:PropertyTypeConcept
+      rdf:type owl:Class ;
+      rdfs:comment "PropertyTypeConcept Class in which specific instances are defined using a skos structure"@en ;
+      rdfs:label "Property type concept"@en ;
+      rdfs:subClassOf skos:Concept ;
+      skos:prefLabel "Property type concept"@en .
+
+common:PropertyTypeNotationDatatype
+      rdf:type rdfs:Datatype ;
+      rdfs:comment "Property type notation data type"@en ;
+      rdfs:label "Property type notation data type"@en .
+
+common:county
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Name of a geographic area which comprises either a current of former county in England of Wales or a Unitary Authority."@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "County"@en ;
+      rdfs:range xsd:string .
+
+common:detached
+      rdf:type common:PropertyTypeConcept ;
+      rdfs:label "Detached"@en ;
+      common:propertyTypeNotation
+              "D"^^common:PropertyTypeNotationDatatype ;
+      skos:definition "detached property"@en ;
+      skos:notation "D" , "D"^^common:PropertyTypeNotationDatatype ;
+      skos:prefLabel "detached"@en ;
+      skos:topConceptOf common:propertyTypeConceptScheme .
+
+common:district
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Name of an administrative district in England and Wales. An administrative district also covers the London boroughs, unitary authorities and for the purposes of Land Registry the Isles of Scilly parishes."@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "District"@en ;
+      rdfs:range xsd:string .
+
+common:estateTypeConceptScheme
+      rdf:type skos:ConceptScheme ;
+      rdfs:comment "Skos Concept Scheme for Estate Type"@en ;
+      rdfs:label "Estate type concept scheme"@en ;
+      skos:hasTopConcept common:freehold , common:leasehold .
+
+common:estateTypeNotation
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain common:EstateTypeConcept ;
+      rdfs:label "Estate type notation"@en ;
+      rdfs:range common:EstateTypeNotationDatatype ;
+      rdfs:subPropertyOf skos:notation .
+
+common:flat-maisonette
+      rdf:type common:PropertyTypeConcept ;
+      rdfs:label "Flat-maisonette"@en ;
+      common:propertyTypeNotation
+              "F"^^common:PropertyTypeNotationDatatype ;
+      skos:definition "a maisonette or a flat type property"@en ;
+      skos:notation "F" , "F"^^common:PropertyTypeNotationDatatype ;
+      skos:prefLabel "flat-maisonette"@en ;
+      skos:topConceptOf common:propertyTypeConceptScheme .
+
+common:freehold
+      rdf:type common:EstateTypeConcept ;
+      rdfs:label "Freehold"@en ;
+      common:estateTypeNotation
+              "F"^^common:EstateTypeNotationDatatype ;
+      skos:notation "F" , "F"^^common:EstateTypeNotationDatatype ;
+      skos:prefLabel "Freehold"@en ;
+      skos:topConceptOf common:estateTypeConceptScheme .
+
+common:leasehold
+      rdf:type common:EstateTypeConcept ;
+      rdfs:label "Leasehold"@en ;
+      common:estateTypeNotation
+              "L"^^common:EstateTypeNotationDatatype ;
+      skos:notation "L" , "L"^^common:EstateTypeNotationDatatype ;
+      skos:prefLabel "Leasehold"@en ;
+      skos:topConceptOf common:estateTypeConceptScheme .
+
+common:locality
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Name of a place which is either a hamlet / village in a rural area or a subdivision of a town / city in an urban area"@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "Locality"@en ;
+      rdfs:range xsd:string .
+
+common:paon
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Primary Addressable Object Name. Name, number or decscription used to identify either the Basic Land and Property Unit (BLPU) or the larger BLPU of which it forms part, for the purposes of identification. If there is no sub-building, e.g. flat, there will only be a PAON. If there is a sub-building there will be a SAON."@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "PAON"@en ;
+      rdfs:range xsd:string .
+
+common:postcode
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Code which is a combination of up to 7 letters and numbers plus one embedded blank which defines different levels of geographic units. It is part of a coding system created and used by the post office across the UK to facilitate the mail service."@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "Postcode"@en ;
+      rdfs:range xsd:string .
+
+common:propertyTypeConceptScheme
+      rdf:type skos:ConceptScheme ;
+      rdfs:label "Property type concept scheme"@en ;
+      skos:hasTopConcept common:detached , common:flat-maisonette , common:semi-detached , common:terraced ;
+      skos:prefLabel "property-types"@en .
+
+common:propertyTypeNotation
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain common:PropertyTypeConcept ;
+      rdfs:label "Property type notation"@en ;
+      rdfs:range common:PropertyTypeNotationDatatype ;
+      rdfs:subPropertyOf skos:notation .
+
+common:saon
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Secondary Addressable Object Name. Name, number or description used to identify the Basic Land and Property Unit (BLPU) within a larger BLPU. Typically this will be a floor or flat within a building. If there is no sub-building, e.g. flat, there will only be a PAON. If there is a sub-building there will be a SAON."@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "SAON"@en ;
+      rdfs:range xsd:string .
+
+common:semi-detached
+      rdf:type common:PropertyTypeConcept ;
+      rdfs:label "Semi-detached"@en ;
+      common:propertyTypeNotation
+              "S"^^common:PropertyTypeNotationDatatype ;
+      skos:definition "semi-detached property"@en ;
+      skos:notation "S" , "S"^^common:PropertyTypeNotationDatatype ;
+      skos:prefLabel "semi-detached"@en ;
+      skos:topConceptOf common:propertyTypeConceptScheme .
+
+common:street
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Name of any thoroughfare in England and Wales which is the first or only street name in an address."@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "Street"@en ;
+      rdfs:range xsd:string .
+
+common:terraced
+      rdf:type common:PropertyTypeConcept ;
+      rdfs:label "Terraced"@en ;
+      common:propertyTypeNotation
+              "T"^^common:PropertyTypeNotationDatatype ;
+      skos:definition "terraced property"@en ;
+      skos:notation "T" , "T"^^common:PropertyTypeNotationDatatype ;
+      skos:prefLabel "terraced"@en ;
+      skos:topConceptOf common:propertyTypeConceptScheme .
+
+common:town
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Name of an urban area within England and Wales."@en ;
+      rdfs:domain common:BS7666Address ;
+      rdfs:label "Town"@en ;
+      rdfs:range xsd:string .

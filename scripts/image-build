@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+image-vocabs-to-nq
+image-ttl-to-nq
+image-ppd-to-nq
+image-tdb-load
+image-create-text-index

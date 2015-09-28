@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+# figure out what directory the script is in
+SCRIPTS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source $SCRIPTS_DIR/image-config
+
+# remove the old image or create an empty new one
+
+if [ -e $DS_DIR ]
+then
+  rm -r $DS_DIR
+fi
+
+mkdir -p $DS_DIR
+
+TMPDIR=$TEMP $JENA_BIN/tdbloader2 --loc=$DS_DIR $NQUADS_DIR/*

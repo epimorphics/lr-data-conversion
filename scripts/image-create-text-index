@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+# figure out what directory the script is in
+SCRIPTS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source $SCRIPTS_DIR/image-config
+
+# remove the old image or create an empty new one
+
+if [ -e $TEXT_INDEX_DIR ]
+then
+  rm -r $TEXT_INDEX_DIR
+fi
+
+mkdir -p $TEXT_INDEX_DIR
+
+# set up the assembler file
+sed -e "s/\\/var\\/lib\\/fuseki\\/databases/\\/media\\/ephemeral0\\/image-build/" < /etc/fuseki/config.ttl > $FUSEKI_CONFIG
+
+java -Xmx24000M -cp $FUSEKI_HOME/lr-text-indexer.jar:$FUSEKI_HOME/fuseki-server.jar lr.textindexer --desc=$FUSEKI_CONFIG

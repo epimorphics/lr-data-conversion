@@ -1,0 +1,17 @@
+#!/bin/bash
+
+JENA_BIN=/usr/share/apache-jena/bin
+FUSEKI_HOME=/usr/share/fuseki
+PPD_CONVERTER_JAR=~/ppd-converter.jar
+
+DATA_DIR=/media/ephemeral0/image-build
+CSV_DIR=$DATA_DIR/csv
+DS_DIR=$DATA_DIR/LR-DB
+FUSEKI_CONFIG=$DATA_DIR/fuseki-config.ttl
+NQUADS_DIR=$DATA_DIR/nq
+TEXT_INDEX_DIR=${DS_DIR}-lucene
+TTL_DIR=$DATA_DIR/ttl
+VOCAB_DIR=$DATA_DIR/vocab
+TEMP=$DATA_DIR/TEMP
+
+mkdir -p $TEMP

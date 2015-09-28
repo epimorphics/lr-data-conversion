@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# $1 path to file to convert
+# $2 graph name (the part after http://landregistry.data.gov.uk/ )
+function convertTtl {
+
+  filename=$(basename $1)
+  dirnm=$(dirname $1)
+  ext=${filename##*.}; 
+  root=${filename%.*};  
+  
+  if [ ! -e $NQUADS_DIR/${root}.nq.gz ]
+  then
+    echo converting filename = $filename to NQUADS
+  
+    $JENA_BIN/turtle $1 \
+      | sed -e "s/\\.[[:space:]]*$/ <http:\\/\\/landregistry.data.gov.uk\\/$root> ./" \
+      | gzip > $TEMP/${root}.nq.gz
+    mv $TEMP/${root}.nq.gz $NQUADS_DIR/${root}.nq.gz
+    
+    echo finished converting ${filename}
+  fi
+}
