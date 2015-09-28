@@ -43,27 +43,11 @@ public class PPDCSVLineConverter {
 		TRANSACTION_CATEGORY.put("A", PPI.standardPricePaidTransaction);
 		TRANSACTION_CATEGORY.put("B", PPI.additionalPricePaidTransaction);
 	}
-		
-	private static final int COLUMN_GUID = 0;
-	private static final int COLUMN_PRICE_PAID = 1;
-	private static final int COLUMN_TRANSACTION_DATE = 2;
-	private static final int COLUMN_POSTCODE = 3;
-	private static final int COLUMN_PROPERTY_TYPE = 4;
-	private static final int COLUMN_NEWBUILD = 5;
-	private static final int COLUMN_ESTATE_TYPE = 6;
-    private static final int COLUMN_PAON = 7;
-	private static final int COLUMN_SAON = 8;
-	private static final int COLUMN_STREET = 9;
-	private static final int COLUMN_LOCALITY = 10;
-	private static final int COLUMN_TOWN = 11;
-	private static final int COLUMN_DISTRICT = 12;
-	private static final int COLUMN_COUNTY = 13;
-	private static final int COLUMN_TRANSACTION_CATEGORY = 14;
 	
 	private static final String HASH_ALGORITHM = "SHA";
 	
 	private String publishDate;
-	private String[] line;
+	private PPDCSVLine line;
 	private ErrorHandler errorHandler;
 	private PrintStream output;
 	
@@ -74,11 +58,10 @@ public class PPDCSVLineConverter {
 	
 	public PPDCSVLineConverter(String publishDate, Set<String> transactionIDs, String[] line, PrintStream output, ErrorHandler errorHandler) {
 		this.publishDate = publishDate;
-		this.line = line;
+		this.line = new PPDCSVLine(line);
 		this.output = output;
 		this.errorHandler = errorHandler;
-		guid = line[COLUMN_GUID].substring(1);
-		guid = guid.substring(0, guid.length()-1);
+		guid = this.line.getGUID();
 		if (transactionIDs.contains(guid)) {
 			errorHandler.reportError("Input CSV contains multiple records for guid: " + guid);
 			throw new Error("Input CSV contains multiple records for guid");
@@ -107,7 +90,7 @@ public class PPDCSVLineConverter {
 		writeQuad(transactionRecordURI, PPI.transactionId, literal(guid, PPI.TransactionIdDatatype));
 		writeQuad(transactionRecordURI, PPI.hasTransaction, uri(transactionURI));
 		writeQuad(transactionRecordURI, PPI.transactionDate, literal(transactionDate(), XSD.date));
-		writeQuad(transactionRecordURI, PPI.pricePaid, literal(line[COLUMN_PRICE_PAID], XSD.integer));
+		writeQuad(transactionRecordURI, PPI.pricePaid, literal(line.getPricePaid(), XSD.integer));
 		writeQuad(transactionRecordURI, PPI.propertyType, uri(propertyType()));
 		writeQuad(transactionRecordURI, PPI.newBuild, literal(newBuild(), XSD.xboolean) );
 		writeQuad(transactionRecordURI, PPI.estateType, uri(estateType() )) ;
@@ -121,22 +104,22 @@ public class PPDCSVLineConverter {
 	
 	protected void writeAddress() {
 		writeQuad(addressURI, RDF.type, uri(COMMON.BS7666Address.getURI()));
-		writeQuad(addressURI, COMMON.paon, literal(getColumnValue(COLUMN_PAON, null), XSD.xstring));
-		writeQuad(addressURI, COMMON.saon, literal(getColumnValue(COLUMN_SAON, null), XSD.xstring));
-		writeQuad(addressURI, COMMON.street, literal(getColumnValue(COLUMN_STREET, null), XSD.xstring));
-		writeQuad(addressURI, COMMON.locality, literal(getColumnValue(COLUMN_LOCALITY, null), XSD.xstring));
-		writeQuad(addressURI, COMMON.town, literal(getColumnValue(COLUMN_TOWN, null), XSD.xstring));
-		writeQuad(addressURI, COMMON.district, literal(getColumnValue(COLUMN_DISTRICT, null), XSD.xstring));
-		writeQuad(addressURI, COMMON.county, literal(getColumnValue(COLUMN_COUNTY, null), XSD.xstring));
-		writeQuad(addressURI, COMMON.postcode, literal(getColumnValue(COLUMN_POSTCODE, null), XSD.xstring));
+		writeQuad(addressURI, COMMON.paon, literal(substituteDefault(line.getPaon(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.saon, literal(substituteDefault(line.getSaon(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.street, literal(substituteDefault(line.getStreet(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.locality, literal(substituteDefault(line.getLocality(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.town, literal(substituteDefault(line.getTown(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.district, literal(substituteDefault(line.getDistrict(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.county, literal(substituteDefault(line.getCounty(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.postcode, literal(substituteDefault(line.getPostCode(), null), XSD.xstring));
 	}
 		
 	protected String transactionDate() {
-		return line[COLUMN_TRANSACTION_DATE].substring(0,10);		
+		return line.getTransactionDate().substring(0,10);		
 	}
 	
 	protected String newBuild() {
-		String val = line[COLUMN_NEWBUILD];
+		String val = line.getNewBuild();
 		if (val.equals("N")) {
 			return "false";
 		} else if (val.equals("Y")) {
@@ -149,25 +132,25 @@ public class PPDCSVLineConverter {
 	}
 	
 	protected Resource propertyType() {
-		Resource result = PROPERTY_TYPE.get(line[COLUMN_PROPERTY_TYPE]);
+		Resource result = PROPERTY_TYPE.get(line.getPropertyType());
 		if (result == null) {
-			errorHandler.warn("unknown property type: '" + line[COLUMN_PROPERTY_TYPE] + "'");
+			errorHandler.warn("unknown property type: '" + line.getPropertyType() + "'");
 		}
 		return result;
 	}
 
 	protected Resource estateType() {
-		Resource result = ESTATE_TYPE.get(line[COLUMN_ESTATE_TYPE]);
+		Resource result = ESTATE_TYPE.get(line.getEstateType());
 		if (result == null) {
-			errorHandler.warn("unknown estate type: '" + line[COLUMN_ESTATE_TYPE] + "'");
+			errorHandler.warn("unknown estate type: '" + line.getEstateType() + "'");
 		}
 		return result;
 	}
 	
 	protected Resource transactionCategory() {
-		Resource result = TRANSACTION_CATEGORY.get(line[COLUMN_TRANSACTION_CATEGORY]);
+		Resource result = TRANSACTION_CATEGORY.get(line.getTransactionCategory());
 		if (result == null) {
-			errorHandler.warn("unknown transaction category: '" + line[COLUMN_TRANSACTION_CATEGORY] + "'");
+			errorHandler.warn("unknown transaction category: '" + line.getTransactionCategory() + "'");
 		}
 		return result;
 	}	
@@ -178,14 +161,14 @@ public class PPDCSVLineConverter {
 	
 	protected String serializeAddress() {
 	      StringBuffer hashBuffer = new StringBuffer();
-	      hashBuffer.append(getColumnValue(COLUMN_PAON,  "noPaon"));
-	      hashBuffer.append(getColumnValue(COLUMN_SAON,  "noSaon"));
-	      hashBuffer.append(getColumnValue(COLUMN_STREET,  "A"));
-	      hashBuffer.append(getColumnValue(COLUMN_LOCALITY,  "B"));
-	      hashBuffer.append(getColumnValue(COLUMN_TOWN,  "C"));
-	      hashBuffer.append(getColumnValue(COLUMN_DISTRICT,  "D"));
-	      hashBuffer.append(getColumnValue(COLUMN_COUNTY,  "E"));
-	      hashBuffer.append(getColumnValue(COLUMN_POSTCODE,  "F"));
+	      hashBuffer.append(substituteDefault(line.getPaon(),      "noPaon"));
+	      hashBuffer.append(substituteDefault(line.getSaon(),      "noSaon"));
+	      hashBuffer.append(substituteDefault(line.getStreet(),    "A"));
+	      hashBuffer.append(substituteDefault(line.getLocality(),  "B"));
+	      hashBuffer.append(substituteDefault(line.getTown(),      "C"));
+	      hashBuffer.append(substituteDefault(line.getDistrict(),  "D"));
+	      hashBuffer.append(substituteDefault(line.getCounty(),    "E"));
+	      hashBuffer.append(substituteDefault(line.getPostCode(),  "F"));
 	      return hashBuffer.toString();
 	}
 	
@@ -214,8 +197,8 @@ public class PPDCSVLineConverter {
 	    return new String(hexChars);
 	}
 	
-	protected String getColumnValue(int column, String def) {
-		String result = line[column];
+	protected String substituteDefault(String value, String def) {
+		String result = value;
 		if (result == null || result.trim().length() == 0) {
 			result = def;
 		}
