@@ -1,8 +1,6 @@
 package com.epimorphics.lr.data.ppd;
 
 import java.io.PrintStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -44,8 +42,6 @@ public class PPDCSVLineConverter {
 		TRANSACTION_CATEGORY.put("B", PPI.additionalPricePaidTransaction);
 	}
 	
-	private static final String HASH_ALGORITHM = "SHA";
-	
 	private String publishDate;
 	private PPDCSVLine line;
 	private ErrorHandler errorHandler;
@@ -70,7 +66,7 @@ public class PPDCSVLineConverter {
 		}
 		transactionURI = TRANSACTION_BASE + guid ;
 		transactionRecordURI = transactionURI + "/current" ;
-		addressURI = ADDRESS_BASE + getAddressHash();
+		addressURI = ADDRESS_BASE + PPDUtil.getAddressHash(this.line);
 	}
 	
 	public void convertLine() {
@@ -104,14 +100,14 @@ public class PPDCSVLineConverter {
 	
 	protected void writeAddress() {
 		writeQuad(addressURI, RDF.type, uri(COMMON.BS7666Address.getURI()));
-		writeQuad(addressURI, COMMON.paon, literal(substituteDefault(line.getPaon(), null), XSD.xstring));
-		writeQuad(addressURI, COMMON.saon, literal(substituteDefault(line.getSaon(), null), XSD.xstring));
-		writeQuad(addressURI, COMMON.street, literal(substituteDefault(line.getStreet(), null), XSD.xstring));
-		writeQuad(addressURI, COMMON.locality, literal(substituteDefault(line.getLocality(), null), XSD.xstring));
-		writeQuad(addressURI, COMMON.town, literal(substituteDefault(line.getTown(), null), XSD.xstring));
-		writeQuad(addressURI, COMMON.district, literal(substituteDefault(line.getDistrict(), null), XSD.xstring));
-		writeQuad(addressURI, COMMON.county, literal(substituteDefault(line.getCounty(), null), XSD.xstring));
-		writeQuad(addressURI, COMMON.postcode, literal(substituteDefault(line.getPostCode(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.paon, literal(PPDUtil.substituteDefault(line.getPaon(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.saon, literal(PPDUtil.substituteDefault(line.getSaon(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.street, literal(PPDUtil.substituteDefault(line.getStreet(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.locality, literal(PPDUtil.substituteDefault(line.getLocality(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.town, literal(PPDUtil.substituteDefault(line.getTown(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.district, literal(PPDUtil.substituteDefault(line.getDistrict(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.county, literal(PPDUtil.substituteDefault(line.getCounty(), null), XSD.xstring));
+		writeQuad(addressURI, COMMON.postcode, literal(PPDUtil.substituteDefault(line.getPostCode(), null), XSD.xstring));
 	}
 		
 	protected String transactionDate() {
@@ -153,38 +149,11 @@ public class PPDCSVLineConverter {
 			errorHandler.warn("unknown transaction category: '" + line.getTransactionCategory() + "'");
 		}
 		return result;
-	}	
-	
-	protected String getAddressHash() {
-		return generateHash(serializeAddress());
 	}
 	
-	protected String serializeAddress() {
-	      StringBuffer hashBuffer = new StringBuffer();
-	      hashBuffer.append(substituteDefault(line.getPaon(),      "noPaon"));
-	      hashBuffer.append(substituteDefault(line.getSaon(),      "noSaon"));
-	      hashBuffer.append(substituteDefault(line.getStreet(),    "A"));
-	      hashBuffer.append(substituteDefault(line.getLocality(),  "B"));
-	      hashBuffer.append(substituteDefault(line.getTown(),      "C"));
-	      hashBuffer.append(substituteDefault(line.getDistrict(),  "D"));
-	      hashBuffer.append(substituteDefault(line.getCounty(),    "E"));
-	      hashBuffer.append(substituteDefault(line.getPostCode(),  "F"));
-	      return hashBuffer.toString();
-	}
 	
-	private String generateHash(String plaintext) {		
-	    MessageDigest m;
-		try {
-	       m = MessageDigest.getInstance(HASH_ALGORITHM);
-		} catch (NoSuchAlgorithmException e) {
-			errorHandler.reportError("unknown hash algorithm: " + HASH_ALGORITHM, e);
-			throw new Error("Fatal Error", e);
-		}
-		m.reset();
-		m.update(plaintext.getBytes());
-		byte[] digest = m.digest();
-		return bytesToHex(digest);
-    }
+	
+	
 	
 	final protected static char[] hexArray = "0123456789abcdef".toCharArray();
 	public static String bytesToHex(byte[] bytes) {
@@ -195,14 +164,6 @@ public class PPDCSVLineConverter {
 	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
 	    }
 	    return new String(hexChars);
-	}
-	
-	protected String substituteDefault(String value, String def) {
-		String result = value;
-		if (result == null || result.trim().length() == 0) {
-			result = def;
-		}
-		return result;
 	}
 	
 	protected void writeQuad(String subjectURI, Property property, String object) {
