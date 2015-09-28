@@ -1,0 +1,23 @@
+prefix lrhpi: <http://landregistry.data.gov.uk/def/hpi/>
+prefix lrppi: <http://landregistry.data.gov.uk/def/ppi/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix lrcommon: <http://landregistry.data.gov.uk/def/common/>
+
+SELECT ?countRemote ?countLocal {
+  SERVICE <http://landregistry.data.gov.uk/landregistry/query> {
+    {
+      SELECT (COUNT(?sr) AS ?countRemote) {
+        GRAPH <http://landregistry.data.gov.uk/HPI-2015-07> {
+          ?sr ?pr ?or
+        }
+      }
+    }
+  }
+  {
+    SELECT (COUNT(?sl) AS ?countLocal) {
+      GRAPH <http://landregistry.data.gov.uk/HPI-2015-07> {
+        ?sl ?pl ?ol
+      }
+    }
+  }
+}

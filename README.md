@@ -2,19 +2,21 @@
 
 The conversion processes produces a complete TDB/Lucene image that can be served by Fuseki.
 
-The Java code in this project will convert a complete PPD CSV file into NQUADS.  Vocabulary,
-HPI data, and TRANS data in TTL format are converted to QUADS and loaded into the image.
+The Java code in this project will convert a complete PPD CSV file into NQUADS.  
+
+Scripts convert vocabulary, HPI data, and TRANS data in TTL format  to QUADS 
+that are also loaded into the image.
 
 The directory layout is as follows:
 
-/media/ephemeral0/image-build/
-  csv          # PPD CSV files
-  ttl          # HPI and TRANS ttl files
-  vocab        # owl files in .ttl format
-  nq           # converted NQUADS files to be loaded into the image
-  LR-DB        # TDB image
-  LR-DB-lucene # text index
-  TEMP         # temp directory - needed by tdbloader2 for large sorts
+    /media/ephemeral0/image-build/
+      csv          # PPD CSV files
+      ttl          # HPI and TRANS ttl files
+      vocab        # owl files in .ttl format
+      nq           # converted NQUADS files to be loaded into the image
+      LR-DB        # TDB image
+      LR-DB-lucene # text index
+      TEMP         # temp directory - needed by tdbloader2 for large sorts
   
   
 ## scripts
