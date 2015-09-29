@@ -2,26 +2,31 @@ package com.epimorphics.lr.data.ppd;
 
 public class PPDCSVLine {
 	
-	private static final int COLUMN_GUID = 0;
-	private static final int COLUMN_PRICE_PAID = 1;
-	private static final int COLUMN_TRANSACTION_DATE = 2;
-	private static final int COLUMN_POSTCODE = 3;
-	private static final int COLUMN_PROPERTY_TYPE = 4;
-	private static final int COLUMN_NEWBUILD = 5;
-	private static final int COLUMN_ESTATE_TYPE = 6;
-    private static final int COLUMN_PAON = 7;
-	private static final int COLUMN_SAON = 8;
-	private static final int COLUMN_STREET = 9;
-	private static final int COLUMN_LOCALITY = 10;
-	private static final int COLUMN_TOWN = 11;
-	private static final int COLUMN_DISTRICT = 12;
-	private static final int COLUMN_COUNTY = 13;
-	private static final int COLUMN_TRANSACTION_CATEGORY = 14;
+	public static final int COLUMN_GUID = 0;
+	public static final int COLUMN_PRICE_PAID = 1;
+	public static final int COLUMN_TRANSACTION_DATE = 2;
+	public static final int COLUMN_POSTCODE = 3;
+	public static final int COLUMN_PROPERTY_TYPE = 4;
+	public static final int COLUMN_NEWBUILD = 5;
+	public static final int COLUMN_ESTATE_TYPE = 6;
+    public static final int COLUMN_PAON = 7;
+	public static final int COLUMN_SAON = 8;
+	public static final int COLUMN_STREET = 9;
+	public static final int COLUMN_LOCALITY = 10;
+	public static final int COLUMN_TOWN = 11;
+	public static final int COLUMN_DISTRICT = 12;
+	public static final int COLUMN_COUNTY = 13;
+	public static final int COLUMN_TRANSACTION_CATEGORY = 14;
 	
-	String[] line;
+	private String[] line;
+	private String addressHash;
 	
 	public PPDCSVLine(String[] line) {
 		this.line = line;
+	}
+	
+	public String get(int column) {
+		return line[column];
 	}
 	
 	public String getGUID() {
@@ -84,5 +89,12 @@ public class PPDCSVLine {
 	
 	public String getTransactionCategory() {
 		return line[COLUMN_TRANSACTION_CATEGORY];
+	}
+	
+	public String getAddressHash() {
+		if (addressHash == null) {
+			addressHash = PPDUtil.getAddressHash(this);
+		}
+		return addressHash;
 	}
 }
