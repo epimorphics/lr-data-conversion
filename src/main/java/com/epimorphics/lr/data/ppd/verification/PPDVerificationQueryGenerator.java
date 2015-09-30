@@ -54,13 +54,13 @@ public class PPDVerificationQueryGenerator {
 		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "standard-transaction-count", PPDCSVLine.COLUMN_TRANSACTION_CATEGORY, "A", "lrppi:transactionCategory", "lrppi:standardPricePaidTransaction", errorHandler));
 		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "additional-transaction-count", PPDCSVLine.COLUMN_TRANSACTION_CATEGORY, "B", "lrppi:transactionCategory", "lrppi:additionalPricePaidTransaction", errorHandler));
 		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "leasehold-count", PPDCSVLine.COLUMN_ESTATE_TYPE, "L", "lrppi:estateType", "lrcommon:leasehold", errorHandler));
-		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "freehold-count", PPDCSVLine.COLUMN_ESTATE_TYPE, "L", "lrppi:estateType", "lrcommon:freehold", errorHandler));
+		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "freehold-count", PPDCSVLine.COLUMN_ESTATE_TYPE, "F", "lrppi:estateType", "lrcommon:freehold", errorHandler));
 		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "new-build-count", PPDCSVLine.COLUMN_NEWBUILD, "Y", "lrppi:newBuild", "true", errorHandler));
 		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "not-new-build-count", PPDCSVLine.COLUMN_NEWBUILD, "N", "lrppi:newBuild", "false", errorHandler));
-		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "flat-maisonette-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "F", "lrppi:propertyType", "common:flat-maisonette", errorHandler));
-		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "terraced-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "T", "lrppi:propertyType", "common:terraced", errorHandler));
-		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "semi-detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "S", "lrppi:propertyType", "common:semi-detached", errorHandler));
-		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "D", "lrppi:propertyType", "common:detached", errorHandler));
+		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "flat-maisonette-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "F", "lrppi:propertyType", "lrcommon:flat-maisonette", errorHandler));
+		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "terraced-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "T", "lrppi:propertyType", "lrcommon:terraced", errorHandler));
+		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "semi-detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "S", "lrppi:propertyType", "lrcommon:semi-detached", errorHandler));
+		queryGenerators.add(new VerifyPropertyValueCount(outputDir, "detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "D", "lrppi:propertyType", "lrcommon:detached", errorHandler));
 	    PPDCSVLineFilter filter1995 = new TransactionYearFilter("1995");
 	    queryGenerators.add(new VerifyFilteredPropertyValueCount(outputDir, "1995-count", filter1995, "lrppi:transactionDate", "STRSTARTS(STR(?propertyValue), \"1995\")", errorHandler));
 		PPDCSVLineFilter filter2005 = new TransactionYearFilter("2005");
