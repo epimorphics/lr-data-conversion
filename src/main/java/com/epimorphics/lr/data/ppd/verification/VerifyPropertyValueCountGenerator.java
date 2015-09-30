@@ -3,7 +3,7 @@ package com.epimorphics.lr.data.ppd.verification;
 import com.epimorphics.lr.data.ppd.ErrorHandler;
 import com.epimorphics.lr.data.ppd.PPDCSVLine;
 
-public class VerifyPropertyValueCount extends VerificationQueryBase implements VerificationQueryGenerator {
+public class VerifyPropertyValueCountGenerator extends VerificationQueryBase implements VerificationQueryGenerator {
 
 	private int column;
 	private String csvValue;
@@ -11,7 +11,7 @@ public class VerifyPropertyValueCount extends VerificationQueryBase implements V
 	private String propertyValue;
 	private int count = 0;
 	
-	VerifyPropertyValueCount(String outputDir, String name, int column, String csvValue, String property, String propertyValue, ErrorHandler errorHandler) {
+	VerifyPropertyValueCountGenerator(String outputDir, String name, int column, String csvValue, String property, String propertyValue, ErrorHandler errorHandler) {
 		super(outputDir, name, errorHandler);
 		this.column = column;
 		this.csvValue = csvValue;

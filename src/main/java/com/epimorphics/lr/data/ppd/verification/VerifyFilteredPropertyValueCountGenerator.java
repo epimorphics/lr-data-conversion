@@ -4,14 +4,14 @@ import com.epimorphics.lr.data.ppd.ErrorHandler;
 import com.epimorphics.lr.data.ppd.PPDCSVLine;
 import com.epimorphics.lr.data.ppd.PPDCSVLineFilter;
 
-public class VerifyFilteredPropertyValueCount extends VerificationQueryBase implements VerificationQueryGenerator {
+public class VerifyFilteredPropertyValueCountGenerator extends VerificationQueryBase implements VerificationQueryGenerator {
 
 	private PPDCSVLineFilter lineFilter;
 	private String property;
 	private String filter;
 	private int count = 0;
 	
-	VerifyFilteredPropertyValueCount(String outputDir, String name, PPDCSVLineFilter lineFilter, String property, String filter, ErrorHandler errorHandler) {
+	VerifyFilteredPropertyValueCountGenerator(String outputDir, String name, PPDCSVLineFilter lineFilter, String property, String filter, ErrorHandler errorHandler) {
 		super(outputDir, name, errorHandler);
 		this.lineFilter = lineFilter;
 		this.property = property ;
