@@ -64,6 +64,77 @@ public class PPDVerificationQueryGenerator {
 		queryGenerators.add(new VerifyFilteredPropertyValueCountGenerator(outputDir, "2005-count", filter2005, "lrppi:transactionDate", "STRSTARTS(STR(?propertyValue), \"2005\")", errorHandler));
 	    PPDCSVLineFilter filter2015 = new TransactionYearFilter("2015");
 		queryGenerators.add(new VerifyFilteredPropertyValueCountGenerator(outputDir, "2015-count", filter2015, "lrppi:transactionDate", "STRSTARTS(STR(?propertyValue), \"2015\")", errorHandler));
+        PPDCSVLineFilter random = new RandomFilter(5000);        
+        String[] filters = {
+        		"?p != lrppi:publishDate"
+        };
+        queryGenerators.add(
+        	new VerifyRemotePropertiesPresentLocallyGenerator(
+        		outputDir, 
+        		"remote-transaction-record-properties",
+        		random,
+        		"lrppi:TransactionRecord",
+        		"http://landregistry.data.gov.uk/landregistry/query",
+        		filters,
+        		errorHandler)
+        );
+        String[] filters2 = {
+        		"?p != lrppi:hasTransactionRecord"
+        };
+        queryGenerators.add(
+        	new VerifyRemotePropertiesPresentLocallyGenerator(
+        		outputDir, 
+        		"remote-transaction-properties",
+        		random,
+        		"lrppi:Transaction",
+        		"http://landregistry.data.gov.uk/landregistry/query",
+        		filters2,
+        		errorHandler)
+        );
+        String[] filters3 = {
+        		"?p != lrppi:publishDate",
+        		"?p != lrppi:transactionCategory"
+        };
+        queryGenerators.add(
+        	new VerifyLocalPropertiesPresentRemotelyGenerator(
+        		outputDir, 
+        		"local-transaction-record-properties",
+        		random,
+        		"lrppi:TransactionRecord",
+        		"http://landregistry.data.gov.uk/landregistry/query",
+        		filters3,
+        		errorHandler)
+        );
+        String[] filters4 = {
+        		"?p != lrppi:hasTransactionRecord"
+        };
+        queryGenerators.add(
+        	new VerifyLocalPropertiesPresentRemotelyGenerator(
+        		outputDir, 
+        		"local-transaction-properties",
+        		random,
+        		"lrppi:Transaction",
+        		"http://landregistry.data.gov.uk/landregistry/query",
+        		filters4,
+        		errorHandler)
+        );
+        queryGenerators.add(
+        	new VerifyLocalAddressPropertiesPresentRemotelyGenerator(
+        		outputDir, 
+        		"local-address-properties",
+        		random,
+        		"http://landregistry.data.gov.uk/landregistry/query",
+        		errorHandler)
+        );
+        queryGenerators.add(
+        	new VerifyRemoteAddressPropertiesPresentLocallyGenerator(
+        		outputDir, 
+        		"remote-address-properties",
+        		random,
+        		"http://landregistry.data.gov.uk/landregistry/query",
+        		errorHandler)
+        );
+
 		try {
 	        while ((line = reader.readNext()) != null) {
 	        	PPDCSVLine ppdLine = new PPDCSVLine(line);

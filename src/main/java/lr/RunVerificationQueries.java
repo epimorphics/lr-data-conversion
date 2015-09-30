@@ -86,7 +86,7 @@ public class RunVerificationQueries {
 		    ResultSet results = qexec.execSelect() ;
 		    for ( ; results.hasNext() ; ) {
 		      QuerySolution soln = results.nextSolution() ;
-		      String item = soln.getLiteral("item").getLexicalForm();
+		      String item = soln.get("item").toString();
 		      String message = soln.getLiteral("message").getLexicalForm();
 		      errorHandler.reportError("verification failed: " + item + " : " + message);
 		    }
