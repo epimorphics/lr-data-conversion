@@ -1,19 +1,16 @@
 package com.epimorphics.lr.data.ppd.verification;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import au.com.bytecode.opencsv.CSVReader;
 
 import com.epimorphics.lr.data.ppd.ErrorHandler;
 import com.epimorphics.lr.data.ppd.PPDCSVLine;
 import com.epimorphics.lr.data.ppd.PPDCSVLineFilter;
 import com.epimorphics.lr.data.ppd.ProgressMonitor;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * Generate verification queries for PPD data in a triple store.

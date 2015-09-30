@@ -14,7 +14,6 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
-import com.epimorphics.lr.data.ppd.PPDCSVFileConverter;
 import com.epimorphics.lr.data.ppd.ErrorHandler;
 import com.epimorphics.lr.data.ppd.ProgressMonitor;
 import com.epimorphics.lr.data.ppd.verification.PPDVerificationQueryGenerator;
