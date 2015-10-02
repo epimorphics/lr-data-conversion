@@ -64,7 +64,7 @@ public class PPDVerificationQueryGenerator {
 		queryGenerators.add(new VerifyFilteredPropertyValueCountGenerator(outputDir, "2005-count", filter2005, "lrppi:transactionDate", "STRSTARTS(STR(?propertyValue), \"2005\")", errorHandler));
 	    PPDCSVLineFilter filter2015 = new TransactionYearFilter("2015");
 		queryGenerators.add(new VerifyFilteredPropertyValueCountGenerator(outputDir, "2015-count", filter2015, "lrppi:transactionDate", "STRSTARTS(STR(?propertyValue), \"2015\")", errorHandler));
-        PPDCSVLineFilter random = new RandomFilter(5000);        
+        PPDCSVLineFilter random = new RandomFilter(50000);        
         String[] filters = {
         		"?p != lrppi:publishDate"
         };
