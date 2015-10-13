@@ -2,8 +2,11 @@ package lr;
 
 
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -65,7 +68,9 @@ public class GenerateVerificationQueries {
 	
 	Reader getInputReader(String path) {
 		try {
-			return new FileReader(path);
+			return new BufferedReader(
+					new InputStreamReader(new FileInputStream(path), "UTF-8")
+		          );
 		} catch (Exception e) {
 			errorHandler.reportError("failed to open input file: " + path, e);
 			throw new RuntimeException();

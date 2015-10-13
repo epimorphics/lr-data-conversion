@@ -1,7 +1,10 @@
 package lr;
 
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 import org.apache.log4j.Logger;
@@ -59,7 +62,9 @@ public class ConvertPPD {
 	
 	Reader getInputReader(String path) {
 		try {
-			return new FileReader(path);
+			return new BufferedReader(
+					new InputStreamReader(new FileInputStream(path), "UTF-8")
+		          );
 		} catch (Exception e) {
 			errorHandler.reportError("failed to open input file: " + path, e);
 			throw new RuntimeException();
