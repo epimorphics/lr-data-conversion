@@ -29,17 +29,12 @@ common:BS7666Address
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:district
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:maxCardinality 1 ;
                 owl:onProperty common:saon
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:postcode
+                owl:onProperty common:street
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
@@ -49,12 +44,12 @@ common:BS7666Address
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:county
+                owl:onProperty common:postcode
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:locality
+                owl:onProperty common:county
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
@@ -64,7 +59,12 @@ common:BS7666Address
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:street
+                owl:onProperty common:locality
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:district
               ] .
 
 common:EstateTypeConcept
@@ -162,6 +162,16 @@ common:locality
       rdfs:label "Locality"@en ;
       rdfs:range xsd:string .
 
+common:non-residential
+      rdf:type common:PropertyTypeConcept ;
+      rdfs:label "non-residential"@en ;
+      common:propertyTypeNotation
+              "O"^^common:PropertyTypeNotationDatatype ;
+      skos:definition "A non-residential property."@en ;
+      skos:notation "O"^^common:PropertyTypeNotationDatatype , "O"^^xsd:string ;
+      skos:prefLabel "non-residential"@en ;
+      skos:topConceptOf common:propertyTypeConceptScheme .
+
 common:paon
       rdf:type owl:DatatypeProperty ;
       rdfs:comment "Primary Addressable Object Name. Name, number or decscription used to identify either the Basic Land and Property Unit (BLPU) or the larger BLPU of which it forms part, for the purposes of identification. If there is no sub-building, e.g. flat, there will only be a PAON. If there is a sub-building there will be a SAON."@en ;
@@ -179,7 +189,7 @@ common:postcode
 common:propertyTypeConceptScheme
       rdf:type skos:ConceptScheme ;
       rdfs:label "Property type concept scheme"@en ;
-      skos:hasTopConcept common:detached , common:flat-maisonette , common:semi-detached , common:terraced ;
+      skos:hasTopConcept common:detached , common:flat-maisonette , common:semi-detached , common:terraced , common:non-residential ;
       skos:prefLabel "property-types"@en .
 
 common:propertyTypeNotation
