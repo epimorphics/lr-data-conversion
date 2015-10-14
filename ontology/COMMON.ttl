@@ -29,22 +29,7 @@ common:BS7666Address
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:saon
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:maxCardinality 1 ;
-                owl:onProperty common:street
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:maxCardinality 1 ;
-                owl:onProperty common:paon
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:maxCardinality 1 ;
-                owl:onProperty common:postcode
+                owl:onProperty common:district
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
@@ -54,7 +39,7 @@ common:BS7666Address
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:town
+                owl:onProperty common:paon
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
@@ -64,7 +49,22 @@ common:BS7666Address
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:maxCardinality 1 ;
-                owl:onProperty common:district
+                owl:onProperty common:postcode
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:town
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:saon
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:maxCardinality 1 ;
+                owl:onProperty common:street
               ] .
 
 common:EstateTypeConcept
@@ -103,7 +103,7 @@ common:detached
       common:propertyTypeNotation
               "D"^^common:PropertyTypeNotationDatatype ;
       skos:definition "detached property"@en ;
-      skos:notation "D" , "D"^^common:PropertyTypeNotationDatatype ;
+      skos:notation "D"^^common:PropertyTypeNotationDatatype , "D" ;
       skos:prefLabel "detached"@en ;
       skos:topConceptOf common:propertyTypeConceptScheme .
 
@@ -118,7 +118,7 @@ common:estateTypeConceptScheme
       rdf:type skos:ConceptScheme ;
       rdfs:comment "Skos Concept Scheme for Estate Type"@en ;
       rdfs:label "Estate type concept scheme"@en ;
-      skos:hasTopConcept common:freehold , common:leasehold .
+      skos:hasTopConcept common:leasehold , common:freehold .
 
 common:estateTypeNotation
       rdf:type owl:DatatypeProperty ;
@@ -133,7 +133,7 @@ common:flat-maisonette
       common:propertyTypeNotation
               "F"^^common:PropertyTypeNotationDatatype ;
       skos:definition "a maisonette or a flat type property"@en ;
-      skos:notation "F" , "F"^^common:PropertyTypeNotationDatatype ;
+      skos:notation "F"^^common:PropertyTypeNotationDatatype , "F" ;
       skos:prefLabel "flat-maisonette"@en ;
       skos:topConceptOf common:propertyTypeConceptScheme .
 
@@ -142,7 +142,7 @@ common:freehold
       rdfs:label "Freehold"@en ;
       common:estateTypeNotation
               "F"^^common:EstateTypeNotationDatatype ;
-      skos:notation "F" , "F"^^common:EstateTypeNotationDatatype ;
+      skos:notation "F"^^common:EstateTypeNotationDatatype , "F" ;
       skos:prefLabel "Freehold"@en ;
       skos:topConceptOf common:estateTypeConceptScheme .
 
@@ -151,7 +151,7 @@ common:leasehold
       rdfs:label "Leasehold"@en ;
       common:estateTypeNotation
               "L"^^common:EstateTypeNotationDatatype ;
-      skos:notation "L" , "L"^^common:EstateTypeNotationDatatype ;
+      skos:notation "L"^^common:EstateTypeNotationDatatype , "L" ;
       skos:prefLabel "Leasehold"@en ;
       skos:topConceptOf common:estateTypeConceptScheme .
 
@@ -162,14 +162,14 @@ common:locality
       rdfs:label "Locality"@en ;
       rdfs:range xsd:string .
 
-common:non-residential
+common:otherPropertyType
       rdf:type common:PropertyTypeConcept ;
-      rdfs:label "non-residential"@en ;
+      rdfs:label "other"@en ;
       common:propertyTypeNotation
               "O"^^common:PropertyTypeNotationDatatype ;
-      skos:definition "A non-residential property."@en ;
+      skos:definition "The property type :otherPropertyType may be used when no other available property type is suitable."@en ;
       skos:notation "O"^^common:PropertyTypeNotationDatatype , "O"^^xsd:string ;
-      skos:prefLabel "non-residential"@en ;
+      skos:prefLabel "other"@en ;
       skos:topConceptOf common:propertyTypeConceptScheme .
 
 common:paon
@@ -189,7 +189,7 @@ common:postcode
 common:propertyTypeConceptScheme
       rdf:type skos:ConceptScheme ;
       rdfs:label "Property type concept scheme"@en ;
-      skos:hasTopConcept common:detached , common:flat-maisonette , common:semi-detached , common:terraced , common:non-residential ;
+      skos:hasTopConcept common:otherPropertyType , common:terraced , common:semi-detached , common:flat-maisonette , common:detached ;
       skos:prefLabel "property-types"@en .
 
 common:propertyTypeNotation
@@ -212,7 +212,7 @@ common:semi-detached
       common:propertyTypeNotation
               "S"^^common:PropertyTypeNotationDatatype ;
       skos:definition "semi-detached property"@en ;
-      skos:notation "S" , "S"^^common:PropertyTypeNotationDatatype ;
+      skos:notation "S"^^common:PropertyTypeNotationDatatype , "S" ;
       skos:prefLabel "semi-detached"@en ;
       skos:topConceptOf common:propertyTypeConceptScheme .
 
@@ -229,7 +229,7 @@ common:terraced
       common:propertyTypeNotation
               "T"^^common:PropertyTypeNotationDatatype ;
       skos:definition "terraced property"@en ;
-      skos:notation "T" , "T"^^common:PropertyTypeNotationDatatype ;
+      skos:notation "T"^^common:PropertyTypeNotationDatatype , "T" ;
       skos:prefLabel "terraced"@en ;
       skos:topConceptOf common:propertyTypeConceptScheme .
 

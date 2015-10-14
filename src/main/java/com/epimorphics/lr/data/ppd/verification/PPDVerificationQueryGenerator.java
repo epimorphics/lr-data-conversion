@@ -58,7 +58,7 @@ public class PPDVerificationQueryGenerator {
 		queryGenerators.add(new VerifyPropertyValueCountGenerator(outputDir, "terraced-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "T", "lrppi:propertyType", "lrcommon:terraced", errorHandler));
 		queryGenerators.add(new VerifyPropertyValueCountGenerator(outputDir, "semi-detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "S", "lrppi:propertyType", "lrcommon:semi-detached", errorHandler));
 		queryGenerators.add(new VerifyPropertyValueCountGenerator(outputDir, "detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "D", "lrppi:propertyType", "lrcommon:detached", errorHandler));
-		queryGenerators.add(new VerifyPropertyValueCountGenerator(outputDir, "detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "O", "lrppi:propertyType", "lrcommon:non-residential", errorHandler));
+		queryGenerators.add(new VerifyPropertyValueCountGenerator(outputDir, "detached-count", PPDCSVLine.COLUMN_PROPERTY_TYPE, "O", "lrppi:propertyType", "lrcommon:otherPropertyType", errorHandler));
 	    PPDCSVLineFilter filter1995 = new TransactionYearFilter("1995");
 	    queryGenerators.add(new VerifyFilteredPropertyValueCountGenerator(outputDir, "1995-count", filter1995, "lrppi:transactionDate", "STRSTARTS(STR(?propertyValue), \"1995\")", errorHandler));
 		PPDCSVLineFilter filter2005 = new TransactionYearFilter("2005");

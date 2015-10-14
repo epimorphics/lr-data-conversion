@@ -35,7 +35,7 @@ public class PPDCSVLineConverter {
 		
 		PROPERTY_TYPE.put("D", COMMON.detached);
 		PROPERTY_TYPE.put("F", COMMON.flat_maisonette);
-		PROPERTY_TYPE.put("O", COMMON.non_residential);
+		PROPERTY_TYPE.put("O", COMMON.otherPropertyType);
 		PROPERTY_TYPE.put("S", COMMON.semi_detached);
 		PROPERTY_TYPE.put("T", COMMON.terraced);
 		
