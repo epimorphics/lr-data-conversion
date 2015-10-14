@@ -18,4 +18,7 @@ mkdir -p $TEXT_INDEX_DIR
 # set up the assembler file
 sed -e "s/\\/var\\/lib\\/fuseki\\/databases/\\/media\\/ephemeral0\\/image-build/" < /etc/fuseki/config.ttl > $FUSEKI_CONFIG
 
+# the text indexer requires a lot of memory - will fail if Fuseki has grabbed a lot
+# restart fuseki to free up memory
+sudo service fuseki restart || true
 java -Xmx24000M -cp $FUSEKI_HOME/lr-text-indexer.jar:$FUSEKI_HOME/fuseki-server.jar lr.textindexer --desc=$FUSEKI_CONFIG
