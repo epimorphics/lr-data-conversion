@@ -45,7 +45,7 @@ ppi:Transaction
 ppi:TransactionCategory
       rdf:type owl:Class ;
       rdfs:comment "The class of Price Paid Transaction Categories"@en ;
-      rdfs:label "TransactionCategory"@en ;
+      rdfs:label "Transaction category"@en ;
       rdfs:subClassOf skos:Concept .
 
 ppi:TransactionCategoryNotationDatatype
