@@ -251,7 +251,7 @@ ppi:transactionCategory
 ppi:transactionCategoryConceptScheme
       rdf:type skos:ConceptScheme ;
       rdfs:comment "This is the skos Concept Scheme for Transaction Category"@en ;
-      rdfs:label "TransactionCategory concept scheme"@en ;
+      rdfs:label "Transaction category concept scheme"@en ;
       skos:hasTopConcept ppi:additionalPricePaidTransaction , ppi:standardPricePaidTransaction .
 
 ppi:transactionCategoryNotation
