@@ -128,9 +128,9 @@ ppi:additionalPricePaidTransaction
       rdf:type ppi:TransactionCategory ;
       rdfs:label "Additional price paid transaction"@en ;
       ppi:transactionCategoryNotation
-              "B"^^ppi:PPDCategoryNotationDatatype ;
+              "B"^^ppi:TransactionCategoryNotationDatatype ;
       skos:definition "Repossessions, Buy-to-lets and transfers of property sold to non-private individuals"@en ;
-      skos:notation "B" , "B"^^ppi:PPDCategoryNotationDatatype ;
+      skos:notation "B" , "B"^^ppi:TransactionCategoryNotationDatatype ;
       skos:prefLabel "Additional price paid transaction"@en ;
       skos:topConceptOf ppi:transactionCategoryConceptScheme .
 
@@ -235,9 +235,9 @@ ppi:standardPricePaidTransaction
       rdf:type ppi:TransactionCategory ;
       rdfs:label "Standard price paid transaction"@en ;
       ppi:transactionCategoryNotation
-              "A"^^ppi:PPDCategoryNotationDatatype ;
+              "A"^^ppi:TransactionCategoryNotationDatatype ;
       skos:definition "Single residential property sold for full market value to private individual"@en ;
-      skos:notation "A"^^ppi:PPDCategoryNotationDatatype , "A" ;
+      skos:notation "A"^^ppi:TransactionCategoryNotationDatatype , "A" ;
       skos:prefLabel "Standard price paid transaction"@en ;
       skos:topConceptOf ppi:transactionCategoryConceptScheme .
 
