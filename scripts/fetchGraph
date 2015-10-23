@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# fetch graphs from endpoint
+#
+# $1: endpoint
+# $2: graphlist file containing list of graphs to retrieve
+# $3: outputDir
+
+ENDPOINT="$1"
+GRAPH_LIST="$2"
+OUTPUT_DIR="$3"
+
+mkdir -p "$OUTPUT_DIR"
+
+while IFS='' read graph || [[ -n "$graph" ]]; do
+    echo "Text read from file: $graph"
+    FILENAME=`basename "$graph"`
+    echo $FILENAME
+    wget --header "Accept:text/turtle" -O "$OUTPUT_DIR/${FILENAME}.ttl" "$ENDPOINT?graph=$graph"
+done < "$GRAPH_LIST"

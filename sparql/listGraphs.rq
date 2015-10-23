@@ -1,0 +1,9 @@
+#
+# List all the graphs in the store
+#
+
+SELECT DISTINCT ?g {
+  GRAPH ?g {}
+}
+ORDER BY ?g
+#LIMIT 1

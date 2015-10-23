@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# compare graphs in two directories
+#
+# $1 directory 1
+# $2 directory 2
+
+JENAHOME=${JENAHOME:-/usr/share/apache-jena}
+
+for FILEPATH in "$1"/* 
+do
+  FILE=`basename "$FILEPATH"`
+  echo $FILE
+  $JENAHOME/bin/rdfcompare "$1/$FILE" "$2/$FILE"
+done
