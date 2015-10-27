@@ -11,11 +11,11 @@ The directory layout is as follows:
 
     /media/ephemeral0/image-build/
       csv          # PPD CSV files
-      ttl          # HPI and TRANS ttl files
-      vocab        # owl files in .ttl format
+      ttl          # HPI and TRANS ttl files to be included in the image
+      vocab        # ontology files in .ttl format to be included in the image
       nq           # converted NQUADS files to be loaded into the image
-      LR-DB        # TDB image
-      LR-DB-lucene # text index
+      LR-DB        # TDB image - created by process
+      LR-DB-lucene # text index - created by process
       TEMP         # temp directory - needed by tdbloader2 for large sorts
   
   

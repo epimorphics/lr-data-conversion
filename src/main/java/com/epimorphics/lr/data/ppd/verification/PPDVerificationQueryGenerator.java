@@ -15,6 +15,10 @@ import com.epimorphics.lr.data.ppd.ProgressMonitor;
 /**
  * Generate verification queries for PPD data in a triple store.
  * 
+ * Creates a collection of query generators.  Each line of the input CSV
+ * file is read and passed to each query generator.  Once the entire
+ * CSV file has been read, each query generator outputs its query.
+ * 
  * @author bwm
  *
  */
