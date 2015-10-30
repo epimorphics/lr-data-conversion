@@ -66,22 +66,17 @@ ppi:TransactionRecord
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:cardinality 1 ;
-                owl:onProperty ppi:propertyType
+                owl:onProperty ppi:pricePaid
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:cardinality 1 ;
-                owl:onProperty ppi:estateType
+                owl:onProperty ppi:newBuild
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:cardinality 1 ;
                 owl:onProperty ppi:transactionCategory
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:cardinality 1 ;
-                owl:onProperty ppi:pricePaid
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
@@ -96,22 +91,22 @@ ppi:TransactionRecord
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:cardinality 1 ;
-                owl:onProperty ppi:publishDate
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:cardinality 1 ;
                 owl:onProperty ppi:recordStatus
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:cardinality 1 ;
-                owl:onProperty ppi:newBuild
+                owl:onProperty ppi:estateType
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:cardinality 1 ;
                 owl:onProperty ppi:propertyAddress
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:cardinality 1 ;
+                owl:onProperty ppi:propertyType
               ] .
 
 ppi:add
@@ -206,7 +201,6 @@ ppi:propertyType
 ppi:publishDate
       rdf:type owl:DatatypeProperty ;
       rdfs:comment "Date that price paid information is published, this is not the date of the Land Registry transaction that created a Price Paid Information entry."@en ;
-      rdfs:domain ppi:TransactionRecord ;
       rdfs:label "Publication date"@en ;
       rdfs:range xsd:date .
 
