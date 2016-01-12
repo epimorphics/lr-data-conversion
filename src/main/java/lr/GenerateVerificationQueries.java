@@ -41,6 +41,7 @@ public class GenerateVerificationQueries {
 		    instance.parseArgs(args).execute();
 		} catch( Throwable t ) {
             errorHandler.reportError("generate SPARQL queries failed");
+            t.printStackTrace();
         }		
 	}
 	

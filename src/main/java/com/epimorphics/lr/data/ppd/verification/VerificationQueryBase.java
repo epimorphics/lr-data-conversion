@@ -34,6 +34,7 @@ public abstract class VerificationQueryBase {
 		writer.println("prefix lrppi: <http://landregistry.data.gov.uk/def/ppi/>");
 		writer.println("prefix skos: <http://www.w3.org/2004/02/skos/core#>");
 		writer.println("prefix lrcommon: <http://landregistry.data.gov.uk/def/common/>");
+		writer.println("prefix text: <http://jena.apache.org/text#>");
 		
 		writer.println();
 		writer.println("SELECT ?item ?message {");

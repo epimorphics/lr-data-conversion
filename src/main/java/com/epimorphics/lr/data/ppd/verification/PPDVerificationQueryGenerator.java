@@ -139,6 +139,62 @@ public class PPDVerificationQueryGenerator {
         		"http://landregistry.data.gov.uk/landregistry/query",
         		errorHandler)
         );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "paon",
+            	    PPDCSVLine.COLUMN_PAON,
+            	    errorHandler)        	    
+            );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "saon",
+            	    PPDCSVLine.COLUMN_SAON,
+            	    errorHandler)        	    
+            );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "street",
+            	    PPDCSVLine.COLUMN_STREET,
+            	    errorHandler)        	    
+            );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "town",
+            	    PPDCSVLine.COLUMN_TOWN,
+            	    errorHandler)        	    
+            );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "locality",
+            	    PPDCSVLine.COLUMN_LOCALITY,
+            	    errorHandler)        	    
+            );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "district",
+            	    PPDCSVLine.COLUMN_DISTRICT,
+            	    errorHandler)        	    
+            );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "county",
+            	    PPDCSVLine.COLUMN_COUNTY,
+            	    errorHandler)        	    
+            );
+        queryGenerators.add(
+            	new VerifyTextIndexSampleGenerator(
+            	    outputDir,
+            	    "postcode",
+            	    0,
+            	    errorHandler)        	    
+            );
 
 		try {
 	        while ((line = reader.readNext()) != null) {
