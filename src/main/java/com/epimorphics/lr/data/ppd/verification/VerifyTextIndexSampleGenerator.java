@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import com.epimorphics.lr.data.ppd.ErrorHandler;
+import com.epimorphics.lr.data.ErrorHandler;
 import com.epimorphics.lr.data.ppd.PPDCSVLine;
 
 /**
@@ -20,7 +20,7 @@ import com.epimorphics.lr.data.ppd.PPDCSVLine;
  * @author bwm
  *
  */
-public class VerifyTextIndexSampleGenerator extends VerificationQueryBase implements VerificationQueryGenerator {
+public class VerifyTextIndexSampleGenerator extends PPDVerificationQueryBase implements PPDVerificationQueryGenerator {
 	
 	YearMonthToSampleMap map = new YearMonthToSampleMap();
 	private String field;
@@ -34,7 +34,9 @@ public class VerifyTextIndexSampleGenerator extends VerificationQueryBase implem
 	
 	@Override
 	public void addLine(PPDCSVLine line) {
-		map.add(line);
+		if ("Y".equals(line.getNewBuild())) {;
+		    map.add(line);
+		}
 	}
 
 	@Override

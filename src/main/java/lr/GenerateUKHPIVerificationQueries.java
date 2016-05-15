@@ -16,28 +16,28 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
-import com.epimorphics.lr.data.ppd.ErrorHandler;
-import com.epimorphics.lr.data.ppd.ProgressMonitor;
-import com.epimorphics.lr.data.ppd.verification.PPDVerificationQueryGenerator;
+import com.epimorphics.lr.data.ErrorHandler;
+import com.epimorphics.lr.data.ProgressMonitor;
+import com.epimorphics.lr.data.ukhpi.verification.UKHPIVerificationQueriesGenerator;
 /**
- * Main program to generate queries to verify the PPD data in a triple store
+ * Main program to generate queries to verify the UKHPI data in a triple store
  * 
  * Reads from a CSV file and writes to stdout.
  * 
  * @author bwm
  *
  */
-public class GenerateVerificationQueries {
+public class GenerateUKHPIVerificationQueries {
 
 	@Option(name="--input", usage="path to input file")
-	private String inputPath = "data/test/input/appd-test.csv";
+	private String inputPath = "data/test/input/ukhpi-test.csv";
 	@Option(name="--outputDir", usage="directory into which to write SPARQL queries")
-	private String outputDirPath = "sparql/ppd-verification";
+	private String outputDirPath = "sparql/ukhpi-verification";
 	private static ErrorHandler errorHandler = new ErrorHandler();
 		
 	public static void main(String[] args) {
 		try {			
-		    GenerateVerificationQueries instance = new GenerateVerificationQueries() ;
+		    GenerateUKHPIVerificationQueries instance = new GenerateUKHPIVerificationQueries() ;
 		    instance.parseArgs(args).execute();
 		} catch( Throwable t ) {
             errorHandler.reportError("generate SPARQL queries failed");
@@ -45,7 +45,7 @@ public class GenerateVerificationQueries {
         }		
 	}
 	
-	private GenerateVerificationQueries parseArgs(String[] args) throws CmdLineException {
+	private GenerateUKHPIVerificationQueries parseArgs(String[] args) throws CmdLineException {
 		CmdLineParser parser = new CmdLineParser(this);
 		try {
 			parser.parseArgument(args);
@@ -62,7 +62,7 @@ public class GenerateVerificationQueries {
 		Reader input = getInputReader(inputPath);
         createOutputDirectory(outputDirPath);
 		ProgressMonitor progressMonitor = new ProgressMonitor("processed", Logger.getLogger("progress"));
-		PPDVerificationQueryGenerator verificationQueryGenerator = new PPDVerificationQueryGenerator(input, outputDirPath, progressMonitor, errorHandler);
+		UKHPIVerificationQueriesGenerator verificationQueryGenerator = new UKHPIVerificationQueriesGenerator(input, outputDirPath, progressMonitor, errorHandler);
 		verificationQueryGenerator.generate();
 	}
 	

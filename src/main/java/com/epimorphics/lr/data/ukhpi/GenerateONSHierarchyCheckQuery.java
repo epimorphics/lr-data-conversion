@@ -14,7 +14,7 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
-import com.epimorphics.lr.data.ppd.ErrorHandler;
+import com.epimorphics.lr.data.ErrorHandler;
 
 import au.com.bytecode.opencsv.CSVReader;
 /**

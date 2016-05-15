@@ -6,6 +6,9 @@ import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.epimorphics.lr.data.ErrorHandler;
+import com.epimorphics.lr.data.ProgressMonitor;
+
 import au.com.bytecode.opencsv.CSVReader;
 
 /**

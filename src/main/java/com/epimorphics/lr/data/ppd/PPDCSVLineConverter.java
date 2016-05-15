@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.epimorphics.lr.data.ErrorHandler;
 import com.epimorphics.lr.ontology.COMMON;
 import com.epimorphics.lr.ontology.PPI;
 import com.hp.hpl.jena.rdf.model.Property;

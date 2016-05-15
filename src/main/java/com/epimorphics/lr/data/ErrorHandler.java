@@ -1,4 +1,4 @@
-package com.epimorphics.lr.data.ppd;
+package com.epimorphics.lr.data;
 
 /**
  * Report errors
@@ -9,6 +9,7 @@ package com.epimorphics.lr.data.ppd;
 public class ErrorHandler {
     public void reportError(String message, Throwable t) {
     	reportError(message);
+    	System.out.println(t);
     	System.err.println(t.getMessage());
     }
     

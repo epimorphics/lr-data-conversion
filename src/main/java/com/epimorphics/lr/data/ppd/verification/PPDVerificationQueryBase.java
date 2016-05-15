@@ -2,15 +2,15 @@ package com.epimorphics.lr.data.ppd.verification;
 
 import java.io.PrintWriter;
 
-import com.epimorphics.lr.data.ppd.ErrorHandler;
+import com.epimorphics.lr.data.ErrorHandler;
 
-public abstract class VerificationQueryBase {
+public abstract class PPDVerificationQueryBase {
 	
 	private String outputDir;
 	protected String queryName;
 	ErrorHandler errorHandler;
 	
-	protected VerificationQueryBase(String outputDir, String queryName, ErrorHandler errorHandler) {
+	protected PPDVerificationQueryBase(String outputDir, String queryName, ErrorHandler errorHandler) {
 		this.outputDir = outputDir;
 		this.queryName = queryName;
 		this.errorHandler = errorHandler;

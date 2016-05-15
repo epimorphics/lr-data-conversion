@@ -1,11 +1,15 @@
 package lr;
 
 
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.apache.log4j.Logger;
 import org.kohsuke.args4j.CmdLineException;
@@ -14,33 +18,34 @@ import org.kohsuke.args4j.Option;
 
 import com.epimorphics.lr.data.ErrorHandler;
 import com.epimorphics.lr.data.ProgressMonitor;
-import com.epimorphics.lr.data.ppd.PPDCSVFileConverter;
+import com.epimorphics.lr.data.ppd.verification.PPDVerificationQueriesGenerator;
 /**
- * Main program to convert a PPD CSV file to NQUADS
+ * Main program to generate queries to verify the PPD data in a triple store
  * 
  * Reads from a CSV file and writes to stdout.
  * 
  * @author bwm
  *
  */
-public class ConvertPPD {
+public class GeneratePPDVerificationQueries {
 
 	@Option(name="--input", usage="path to input file")
 	private String inputPath = "data/test/input/appd-test.csv";
-	@Option(name="--publishDate", usage="publication date")
-	private String publishDate = null;
+	@Option(name="--outputDir", usage="directory into which to write SPARQL queries")
+	private String outputDirPath = "sparql/ppd-verification";
 	private static ErrorHandler errorHandler = new ErrorHandler();
 		
 	public static void main(String[] args) {
 		try {			
-		    ConvertPPD instance = new ConvertPPD() ;
+		    GeneratePPDVerificationQueries instance = new GeneratePPDVerificationQueries() ;
 		    instance.parseArgs(args).execute();
 		} catch( Throwable t ) {
-            errorHandler.reportError("conversion failed");
+            errorHandler.reportError("generate SPARQL queries failed");
+            t.printStackTrace();
         }		
 	}
 	
-	private ConvertPPD parseArgs(String[] args) throws CmdLineException {
+	private GeneratePPDVerificationQueries parseArgs(String[] args) throws CmdLineException {
 		CmdLineParser parser = new CmdLineParser(this);
 		try {
 			parser.parseArgument(args);
@@ -55,9 +60,10 @@ public class ConvertPPD {
 	
 	private void execute() {
 		Reader input = getInputReader(inputPath);
+        createOutputDirectory(outputDirPath);
 		ProgressMonitor progressMonitor = new ProgressMonitor("processed", Logger.getLogger("progress"));
-		PPDCSVFileConverter converter = new PPDCSVFileConverter(publishDate, input, System.out, progressMonitor, errorHandler);
-		converter.convert();
+		PPDVerificationQueriesGenerator verificationQueryGenerator = new PPDVerificationQueriesGenerator(input, outputDirPath, progressMonitor, errorHandler);
+		verificationQueryGenerator.generate();
 	}
 	
 	Reader getInputReader(String path) {
@@ -70,5 +76,15 @@ public class ConvertPPD {
 			throw new RuntimeException();
 		}		
 	}
-
+	
+	private void createOutputDirectory(String outputDirPath) {
+		Path path = Paths.get(outputDirPath);
+		try {
+			Files.createDirectories(path);
+		} catch (IOException e) {
+			errorHandler.reportError("failed to create output directory: " + outputDirPath, e);
+			// TODO Auto-generated catch block
+			throw new Error("failed to create output directory");
+		}
+	}
 }

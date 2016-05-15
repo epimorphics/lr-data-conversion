@@ -3,11 +3,11 @@ package com.epimorphics.lr.data.ppd.verification;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.epimorphics.lr.data.ppd.ErrorHandler;
+import com.epimorphics.lr.data.ErrorHandler;
 import com.epimorphics.lr.data.ppd.PPDCSVLine;
 import com.epimorphics.lr.data.ppd.PPDUtil;
 
-public class VerifyAddressCountGenerator extends VerificationQueryBase implements VerificationQueryGenerator {
+public class VerifyAddressCountGenerator extends PPDVerificationQueryBase implements PPDVerificationQueryGenerator {
 
 	private Set<String> addressHashes = new HashSet<String>();
 	

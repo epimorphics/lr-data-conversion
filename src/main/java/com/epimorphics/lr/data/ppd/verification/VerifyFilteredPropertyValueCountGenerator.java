@@ -1,10 +1,10 @@
 package com.epimorphics.lr.data.ppd.verification;
 
-import com.epimorphics.lr.data.ppd.ErrorHandler;
+import com.epimorphics.lr.data.ErrorHandler;
 import com.epimorphics.lr.data.ppd.PPDCSVLine;
 import com.epimorphics.lr.data.ppd.PPDCSVLineFilter;
 
-public class VerifyFilteredPropertyValueCountGenerator extends VerificationQueryBase implements VerificationQueryGenerator {
+public class VerifyFilteredPropertyValueCountGenerator extends PPDVerificationQueryBase implements PPDVerificationQueryGenerator {
 
 	private PPDCSVLineFilter lineFilter;
 	private String property;

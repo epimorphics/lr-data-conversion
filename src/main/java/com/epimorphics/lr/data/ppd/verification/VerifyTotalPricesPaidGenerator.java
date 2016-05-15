@@ -1,9 +1,9 @@
 package com.epimorphics.lr.data.ppd.verification;
 
-import com.epimorphics.lr.data.ppd.ErrorHandler;
+import com.epimorphics.lr.data.ErrorHandler;
 import com.epimorphics.lr.data.ppd.PPDCSVLine;
 
-public class VerifyTotalPricesPaidGenerator extends VerificationQueryBase implements VerificationQueryGenerator {
+public class VerifyTotalPricesPaidGenerator extends PPDVerificationQueryBase implements PPDVerificationQueryGenerator {
 
 	private long total = 0;
 	
