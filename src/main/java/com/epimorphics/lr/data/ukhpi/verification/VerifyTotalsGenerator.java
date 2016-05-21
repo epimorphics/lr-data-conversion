@@ -7,10 +7,6 @@ import com.epimorphics.lr.data.ukhpi.UKHPITableDescription.ColumnDescription;
 
 public class VerifyTotalsGenerator extends UKHPIVerificationQueryBase implements UKHPIVerificationQueryGenerator {
 
-//	private double totalHousePriceIndex = 0.0;
-//	private long totalSalesVolume = 0;
-//	private double totalAveragePrice = 0.0;
-	
 	private double[] totals = new double[UKHPITableDescription.columns.length];
 	
 	VerifyTotalsGenerator(String outputDir, ErrorHandler errorHandler) {
@@ -28,20 +24,6 @@ public class VerifyTotalsGenerator extends UKHPIVerificationQueryBase implements
 				}
 			}
 		}
-//		Integer vol = line.getSalesVolume();
-//		if (vol != null) {
-//			totalSalesVolume += vol;
-//		}
-//		
-//		Double averagePrice = line.getDouble(UKHPICSVLine.COLUMN_AVERAGE_PRICE);
-//		if (averagePrice != null) {
-//			totalAveragePrice += averagePrice;
-//		}
-//		
-//		Double housePriceIndex = line.getDouble(UKHPICSVLine.COLUMN_HOUSE_PRICE_INDEX);
-//		if (housePriceIndex != null) {
-//			totalHousePriceIndex += housePriceIndex;
-//		}
 	}
 
 	@Override
@@ -59,14 +41,6 @@ public class VerifyTotalsGenerator extends UKHPIVerificationQueryBase implements
 		}
 		sb.append("  }\n");
 		writeQuery(sb.toString());
-
-//		generateOneColumn(sb, "averagePrice", Double.toString(totalAveragePrice));
-//		sb.append("  } UNION {\n");
-//		generateOneColumn(sb, "housePriceIndex", Double.toString(totalHousePriceIndex));
-//		sb.append("  } UNION {\n");
-//		generateOneColumn(sb, "salesVolume", Long.toString(totalSalesVolume));
-//		sb.append("  }\n");
-//		writeQuery(sb.toString());
 	}
 	
 	private boolean anotherMeasureableColumnExists(int columnIndex) {

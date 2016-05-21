@@ -11,12 +11,14 @@ public class UKHPICSVLine {
 	  "averagePrice",
 	  "housePriceIndex",
 	  "housePriceIndexSA",
-	  "percentageMonthlyChange",
+	  "percentageChange",
 	  "percentageAnnualChange",
 	  "averagePriceSA",
 	  "salesVolume"	  
 	};
 	
+	public static final int COLUMN_DATE = 0;
+	public static final int COLUMN_AREA_CODE = 2;
 	public static final int COLUMN_AVERAGE_PRICE = 3;
 	public static final int COLUMN_HOUSE_PRICE_INDEX = 4;
 	public static final int COLUMN_SALES_VOLUME = 9;

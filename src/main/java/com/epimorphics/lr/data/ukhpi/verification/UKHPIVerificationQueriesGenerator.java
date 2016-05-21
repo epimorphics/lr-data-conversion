@@ -42,7 +42,7 @@ public class UKHPIVerificationQueriesGenerator {
 		List<UKHPIVerificationQueryGenerator> queryGenerators = specifyQueryGenerators();
 
 		try {
-			reader.readNext();  // skip header line
+//			reader.readNext();  // skip header line
 		    int lineCount = 1;
 
 	        while ((line = reader.readNext()) != null) {
@@ -71,6 +71,9 @@ public class UKHPIVerificationQueriesGenerator {
         	);
         queryGenerators.add(
         		new VerifyTotalsGenerator(outputDir, errorHandler)
+            );
+        queryGenerators.add(
+        		new VerifyIndexRecordCountByRegionYearGenerator(outputDir, errorHandler)
             );
 		return queryGenerators;		
 	}
