@@ -75,6 +75,9 @@ public class UKHPIVerificationQueriesGenerator {
         queryGenerators.add(
         		new VerifyIndexRecordCountByRegionYearGenerator(outputDir, errorHandler)
             );
+        queryGenerators.add(
+        		new VerifyIndexPropertyTotalsByRegionYearGenerator(outputDir, errorHandler)
+            );        
 		return queryGenerators;		
 	}
 }

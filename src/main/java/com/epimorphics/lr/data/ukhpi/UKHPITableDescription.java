@@ -7,7 +7,7 @@ public class UKHPITableDescription {
 			new ColumnDescription(  1, "regionName",                                  false),
             new ColumnDescription(  2, "areaCode",                                    false),
             new ColumnDescription(  3, "averagePrice",                                true),
-            new ColumnDescription(  3, "housePriceIndex",                             true),
+            new ColumnDescription(  4, "housePriceIndex",                             true),
             new ColumnDescription(  5, "housePriceIndexSA",                           true),
             new ColumnDescription(  6, "percentageChange",                     true),
             new ColumnDescription(  7, "percentageAnnualChange",                      true),

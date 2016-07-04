@@ -60,8 +60,9 @@ public class VerifyTotalsGenerator extends UKHPIVerificationQueryBase implements
 		sb.append("      }\n");
 		sb.append("    }\n");
 		sb.append("\n");
-		sb.append("    FILTER(ABS(?totalValue - " + expectedValue + ") > 1)\n");
-		sb.append("    BIND(?totalValue AS ?item)\n");
-		sb.append("    BIND(\"incorrect total value for " + shortName + ": should be approximately " + expectedValue + "\" AS ?message)\n");
+		sb.append("    BIND( ABS(?totalValue - " + expectedValue + ") AS ?diff )\n" );
+		sb.append("    FILTER( ?diff > 1)\n");
+		sb.append("    BIND(?diff AS ?item)\n");
+		sb.append("    BIND( CONCAT( \"incorrect total value for " + shortName + ": \", STR(?totalValue), \" -  should be approximately " + expectedValue + "\" ) AS ?message)\n");
 	}
 }
